@@ -1,0 +1,26 @@
+{
+  "name": "cheerio-dokuwiki",
+  "version": "0.0.1",
+  "description": "Dokuwiki ETL Scraper",
+  "main": "scrape.js",
+  "scripts": {
+    "start": "node scrape.js"
+  },
+  "dependencies": {
+    "cheerio": "0.22.0",
+    "request": "2.79.0"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsulli99/cheerio-dokuwiki"
+  },
+  "keywords": [
+    "node",
+    "cheerio-dokowiki"
+  ],
+  "author": "Dan Sullivan",
+  "license": "MIT"
+}
