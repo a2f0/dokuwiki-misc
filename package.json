@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "cheerio": "0.22.0",
+    "firebase": "^3.6.3",
     "request": "2.79.0"
   },
   "engines": {
