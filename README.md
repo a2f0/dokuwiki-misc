@@ -1,6 +1,6 @@
 #Overview
 
-Page scraping ETL converting Dokuwiki -> JSON for FireBase
+Page scraping ETL converting Dokuwiki -> JSON for Firebase
 
 # Installation
 
