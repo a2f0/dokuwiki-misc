@@ -2,7 +2,25 @@
 
 var request = require('request');
 var cheerio = require('cheerio');
-console.log("starting...");
+
+/* firebase initialization begin */
+var admin = require("firebase-admin");
+var serviceAccount = require("./api_key.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://tagstack-21c6b.firebaseio.com/"
+});
+
+var db = admin.database();
+var ref = db.ref("tagstack/tags");
+/* firebase initialization end */
+
+// Attach an asynchronous callback to read the data.
+//ref.on("value", function(snapshot) {
+//  console.log(snapshot.val());
+//, function (errorObject) {
+//  console.log("The read failed: " + errorObject.code);
+//});
 
 request('https://dansullivan.io/wiki/doku.php?id=command_reference', 
   function (error, response, html) {
@@ -13,8 +31,14 @@ request('https://dansullivan.io/wiki/doku.php?id=command_reference',
         var nxt = $(this).next();
         nxt.children().each(function(i, element){
           //console.log("BEGIN i" + i + " " + $(this).text() + " END i " + i);
-          if ( $(this).is( "p") ) {
-            console.log("it is a p tag");
+          if ( $(this).is("p") ) {
+            var should_be_pre = $(this).next();
+            if ( should_be_pre.is("pre") ) {
+              //then we have tag, title, and snippet
+              //console.log(sectiontitle + " value: " + $(this).text());
+              console.log(sectiontitle + " value: " + $(this).text().replace(/\n/g, ""));
+              console.log("pre: " + should_be_pre.text());
+            }
           };
         });
         //console.log(sectiontitle); 
