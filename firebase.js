@@ -11,7 +11,7 @@ admin.initializeApp({
 
 // Get a database reference to our items
 var db = admin.database();
-var ref = db.ref("todoApp/items");
+var ref = db.ref("tagstack/items");
 
 // Attach an asynchronous callback to read the data.
 ref.on("value", function(snapshot) {
@@ -20,3 +20,22 @@ ref.on("value", function(snapshot) {
   console.log("The read failed: " + errorObject.code);
 });
 
+//http://stackoverflow.com/questions/37405149/how-do-i-check-if-a-firebase-database-value-exists
+
+var ref2 = db.ref();
+
+ref2.once("value", function(snapshot) {
+  var a = snapshot.exists();
+  console.log("exists");
+  //var a = snapshot.exists();
+  if (snapshot.hasChild("todoApp")) {
+    console.log("child exists");
+  } else {
+    console.log("child doesnt exist");
+  }
+    //  print("yes, items exist")
+    //} else {
+    //  print("false room doesn't exist")
+    //}
+  //})
+});
