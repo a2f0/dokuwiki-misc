@@ -2,10 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-
 restorebackup() {
   cd /tmp
-  rm -rf /tmp/dansullivan.io/
+  rm -rf /tmp/html
   #the s3 bucket that is being used for backups should be mounted
   if [ ! -e /tmp/dokuwiki-latest.tar.gz ]; then
     cp /mnt/dansullivan-io-backup/dokuwiki-latest.tar.gz /tmp
@@ -88,10 +87,18 @@ du -d 0
 #cleanup /tmp/html/wiki 1
 echo "after cleanup"
 du -d 0
-rm -rf /tmp/html/wiki/lib/tpl/dokuwiki_template_starter-stable
-wget https://github.com/selfthinker/dokuwiki_template_starter/archive/stable.zip \
-  -O /tmp/html/wiki/lib/tpl/stable.zip
-unzip /tmp/html/wiki/lib/tpl/stable.zip -d /tmp/html/wiki/lib/tpl/
-gsed -i 's\dokuwiki\dokuwiki_template_starter-stable\g' /tmp/html/wiki/conf/local.php
-##tar -zxvf dps.devopsrockstars.htdocs.06.10.15.tar.gz --no-overwrite-dir
+
+#this is for the starter template
+#rm -rf /tmp/html/wiki/lib/tpl/dokuwiki_template_starter-stable
+#wget https://github.com/selfthinker/dokuwiki_template_starter/archive/stable.zip \
+#  -O /tmp/html/wiki/lib/tpl/stable.zip
+#unzip /tmp/html/wiki/lib/tpl/stable.zip -d /tmp/html/wiki/lib/tpl/
+#rm -rf /tmp/html/wiki/lib/tpl/stable.zip
+#gsed -i 's\dokuwiki\dokuwiki_template_starter-stable\g' /tmp/html/wiki/conf/local.php
+
+#install the template
+git clone https://github.com/dsulli99/dokuwiki_template_starter \
+  /tmp/html/wiki/lib/tpl/dansullivan
+gsed -i 's\dokuwiki\dansullivan\g' /tmp/html/wiki/conf/local.php
+
 php -S localhost:8000
